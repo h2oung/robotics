@@ -44,16 +44,14 @@ class CorridorPatrol(Node):
         # CENTER  = (0.0, 0.0)
         # EXIT_2  = (3.5, 0.0)
         # OBSTACLE = (3.2, 0.0)
-        #
-        # 데모 구조:
+       
         # 로봇은 EXIT_1 근처에서 스폰
         # → CENTER로 직진
         # → CENTER 점검
         # → EXIT_2로 직진
         # → 장애물 감지
         # → CONFIRMED_DANGER
-        #
-        # 즉, 복잡한 사각형 순찰이 아니라 일직선 왕복 구조.
+      
         self.steps = [
             {
                 'name': 'CENTER',
@@ -85,7 +83,6 @@ class CorridorPatrol(Node):
             },
         ]
 
-        # EXIT_1 근처에서 시작한다고 가정하므로 첫 목표는 CENTER
         self.current_index = 0
 
         self.x = None
@@ -100,7 +97,6 @@ class CorridorPatrol(Node):
         self.goal_tolerance = 0.18
         self.yaw_tolerance = 0.18
 
-        # 점검 시간. scan_blockage_judge의 confirm_duration_sec=2.0보다 길어야 함.
         self.inspection_duration_sec = 4.0
 
         # EXIT_2로 가는 중 장애물이 가까우면 목표점까지 가지 않고 점검 시작
@@ -248,9 +244,7 @@ class CorridorPatrol(Node):
 
         if self.mode == 'MOVE':
             self.publish_status(f'MOVING_TO_{name}', name, False)
-
-            # EXIT_2로 가는 중 장애물이 가까워지면
-            # 무리해서 목표점까지 가지 않고 현재 위치에서 점검 시작
+            
             if (
                 name == 'EXIT_2'
                 and self.front_min_distance is not None
